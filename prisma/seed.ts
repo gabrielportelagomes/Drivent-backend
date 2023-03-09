@@ -1,6 +1,16 @@
 import { Hotel, Prisma, PrismaClient, TicketType } from '@prisma/client';
 import dayjs from 'dayjs';
+import { createClient } from 'redis';
 const prisma = new PrismaClient();
+const redis = createClient({
+  url: process.env.REDIS_URL,
+});
+
+async function initRedis(): Promise<void> {
+  await redis.connect();
+}
+
+initRedis();
 
 async function main() {
   let event = await prisma.event.findFirst();
@@ -16,35 +26,44 @@ async function main() {
     });
   }
 
+  const cachekey = 'event';
+  redis.set(cachekey, JSON.stringify(event));
+
   let ticketType: TicketType[] | Prisma.BatchPayload = await prisma.ticketType.findMany();
 
-  if (ticketType.length !== 0) {
-    ticketType = await prisma.ticketType.deleteMany();
+  if (ticketType.length === 0) {
+    ticketType = await prisma.ticketType.createMany({
+      data: [
+        { name: 'Online', price: 10000, isRemote: true, includesHotel: false },
+        { name: 'Presencial Sem Hotel', price: 25000, isRemote: false, includesHotel: false },
+        { name: 'Presencial Com Hotel', price: 60000, isRemote: false, includesHotel: true },
+      ],
+    });
   }
-
-  ticketType = await prisma.ticketType.createMany({
-    data: [
-      { name: 'Online', price: 10000, isRemote: true, includesHotel: false },
-      { name: 'Presencial Sem Hotel', price: 25000, isRemote: false, includesHotel: false },
-      { name: 'Presencial Com Hotel', price: 60000, isRemote: false, includesHotel: true },
-    ],
-  });
 
   let hotel: Hotel[] | Prisma.BatchPayload = await prisma.hotel.findMany();
 
-  if (hotel.length !== 0) {
-    hotel = await prisma.hotel.deleteMany();
+  if (hotel.length === 0) {
+    hotel = await prisma.hotel.createMany({
+      data: [
+        {
+          name: 'Driven Resort',
+          image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTwmbknu3FZ9ChI7dnqBwKzvw5GL_d2Rs8xg&usqp=CAU',
+        },
+        {
+          name: 'Driven Palace',
+          image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgmyQuyFgQGvgeVBsu2irIky-6HFZlD7c-5Q&usqp=CAU',
+        },
+        {
+          name: 'Driven World',
+          image:
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQByoba4yg07jX5RYfTL-rtRfyOduEQP9XJY4KJbI0HzKxUzXLXdVT1no8xwMPGdoDJXgs&usqp=CAU',
+        },
+      ],
+    });
   }
 
-  hotel = await prisma.hotel.createMany({
-    data: [
-      { name: 'Driven Resort', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTwmbknu3FZ9ChI7dnqBwKzvw5GL_d2Rs8xg&usqp=CAU' },
-      { name: 'Driven Palace', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgmyQuyFgQGvgeVBsu2irIky-6HFZlD7c-5Q&usqp=CAU' },
-      { name: 'Driven World', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQByoba4yg07jX5RYfTL-rtRfyOduEQP9XJY4KJbI0HzKxUzXLXdVT1no8xwMPGdoDJXgs&usqp=CAU' },
-    ],
-  });
-
-  console.log({ event, ticketType });
+  console.log({ event, ticketType, hotel });
 }
 
 main()
@@ -54,4 +73,5 @@ main()
   })
   .finally(async () => {
     await prisma.$disconnect();
+    await redis.disconnect();
   });

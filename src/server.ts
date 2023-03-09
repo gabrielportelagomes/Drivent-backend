@@ -1,6 +1,10 @@
-import app, { init } from "@/app";
+import app, { init, initRedis } from '@/app';
 
 const port = +process.env.PORT || 4000;
+
+initRedis().then(() => {
+  console.log('Redis was started!');
+});
 
 init().then(() => {
   app.listen(port, () => {
