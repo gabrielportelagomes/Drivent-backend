@@ -38,3 +38,17 @@ export async function getHotelsWithRooms(req: AuthenticatedRequest, res: Respons
     return res.sendStatus(httpStatus.BAD_REQUEST);
   }
 }
+
+export async function getInfoBookingsRoom(req: AuthenticatedRequest, res: Response) {
+  const { hotelId } = req.params;
+
+  try {
+    const infos = await hotelService.getBookingsWithRoom(Number(hotelId),);
+    return res.status(httpStatus.OK).send(infos);
+  } catch (error) {
+    if (error.name === "NotFoundError") {
+      return res.sendStatus(httpStatus.NOT_FOUND);
+    }
+    return res.sendStatus(httpStatus.BAD_REQUEST);
+  }
+}

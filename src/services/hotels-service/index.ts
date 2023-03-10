@@ -35,9 +35,21 @@ async function getHotelsWithRooms(userId: number, hotelId: number) {
   return hotel;
 }
 
+async function getBookingsWithRoom(hotelId: number) {
+  const hotel = await hotelRepository.findRoomsByHotelId(hotelId);
+
+  if (!hotel) {
+    throw notFoundError();
+  }
+  const rooms = await hotelRepository.findRoomsAndBooking(hotelId);
+
+  return rooms;
+}
+
 const hotelService = {
   getHotels,
   getHotelsWithRooms,
+  getBookingsWithRoom,
 };
 
 export default hotelService;
