@@ -42,9 +42,6 @@ async function getBookingsWithRoom(hotelId: number) {
     throw notFoundError();
   }
   const rooms = await hotelRepository.findRoomsAndBooking(hotelId);
-  if(!rooms){
-    throw notFoundError();
-  }
 
   return rooms;
 }
