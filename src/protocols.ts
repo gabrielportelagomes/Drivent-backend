@@ -45,3 +45,7 @@ export type CreatePayment = {
     cvv: number;
   };
 };
+
+export type CodeSchema = {
+  code: string;
+};
