@@ -1,8 +1,8 @@
-import { cannotBookingError, notFoundError } from "@/errors";
-import roomRepository from "@/repositories/room-repository";
-import bookingRepository from "@/repositories/booking-repository";
-import enrollmentRepository from "@/repositories/enrollment-repository";
-import tikectRepository from "@/repositories/ticket-repository";
+import { cannotBookingError, notFoundError } from '@/errors';
+import roomRepository from '@/repositories/room-repository';
+import bookingRepository from '@/repositories/booking-repository';
+import enrollmentRepository from '@/repositories/enrollment-repository';
+import tikectRepository from '@/repositories/ticket-repository';
 
 async function checkEnrollmentTicket(userId: number) {
   const enrollment = await enrollmentRepository.findWithAddressByUserId(userId);
@@ -11,7 +11,7 @@ async function checkEnrollmentTicket(userId: number) {
   }
   const ticket = await tikectRepository.findTicketByEnrollmentId(enrollment.id);
 
-  if (!ticket || ticket.status === "RESERVED" || ticket.TicketType.isRemote || !ticket.TicketType.includesHotel) {
+  if (!ticket || ticket.status === 'RESERVED' || ticket.TicketType.isRemote || !ticket.TicketType.includesHotel) {
     throw cannotBookingError();
   }
 }
@@ -55,14 +55,25 @@ async function changeBookingRoomById(userId: number, roomId: number) {
   return bookingRepository.upsertBooking({
     id: booking.id,
     roomId,
-    userId
+    userId,
   });
+}
+
+async function getBookingByRoomId( roomId: number) {
+  const booking = await bookingRepository.findRoomByIdWithBookings(roomId);
+
+  if (!booking) {
+    throw notFoundError();
+  }
+
+  return booking;
 }
 
 const bookingService = {
   bookingRoomById,
   getBooking,
   changeBookingRoomById,
+  getBookingByRoomId,
 };
 
 export default bookingService;
