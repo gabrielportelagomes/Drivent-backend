@@ -1,7 +1,7 @@
-import { AuthenticatedRequest } from "@/middlewares";
-import { Response } from "express";
-import httpStatus from "http-status";
-import bookingService from "@/services/booking-service";
+import { AuthenticatedRequest } from '@/middlewares';
+import { Response } from 'express';
+import httpStatus from 'http-status';
+import bookingService from '@/services/booking-service';
 
 export async function listBooking(req: AuthenticatedRequest, res: Response) {
   try {
@@ -32,7 +32,7 @@ export async function bookingRoom(req: AuthenticatedRequest, res: Response) {
       bookingId: booking.id,
     });
   } catch (error) {
-    if (error.name === "CannotBookingError") {
+    if (error.name === 'CannotBookingError') {
       return res.sendStatus(httpStatus.FORBIDDEN);
     }
     return res.sendStatus(httpStatus.NOT_FOUND);
@@ -61,10 +61,40 @@ export async function changeBooking(req: AuthenticatedRequest, res: Response) {
       bookingId: booking.id,
     });
   } catch (error) {
-    if (error.name === "CannotBookingError") {
+    if (error.name === 'CannotBookingError') {
       return res.sendStatus(httpStatus.FORBIDDEN);
     }
     return res.sendStatus(httpStatus.NOT_FOUND);
   }
 }
 
+export async function listBookingByRoomId(req: AuthenticatedRequest, res: Response) {
+  try {
+    const roomId = Number(req.params.roomId);
+
+    if (!roomId) {
+      return res.sendStatus(httpStatus.BAD_REQUEST);
+    }
+
+    const result = await bookingService.getBookingByRoomId(roomId);
+
+    return res.status(httpStatus.OK).send({
+      result,
+    });
+  } catch (error) {
+    return res.sendStatus(httpStatus.NOT_FOUND);
+  }
+}
+
+export async function listBookingSumary(req: AuthenticatedRequest, res: Response) {
+  try {
+    const { userId } = req;
+    const booking = await bookingService.getBookingSummary(userId);
+
+    const bookings = await bookingService.getBookingByRoomId(booking.roomId);
+
+    return res.status(httpStatus.OK).send({ booking, count: bookings._count });
+  } catch (error) {
+    return res.sendStatus(httpStatus.NOT_FOUND);
+  }
+}
