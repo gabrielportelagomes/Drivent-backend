@@ -59,8 +59,18 @@ async function changeBookingRoomById(userId: number, roomId: number) {
   });
 }
 
-async function getBookingByRoomId( roomId: number) {
-  const booking = await bookingRepository.findRoomByIdWithBookings(roomId);
+async function getBookingByRoomId(roomId: number) {
+  const booking = await roomRepository.findRoomByIdWithBookings(roomId);
+
+  if (!booking) {
+    throw notFoundError();
+  }
+
+  return booking;
+}
+
+async function getBookingSummary(userId: number) {
+  const booking = await bookingRepository.findBookingSummary(userId);
 
   if (!booking) {
     throw notFoundError();
@@ -74,6 +84,7 @@ const bookingService = {
   getBooking,
   changeBookingRoomById,
   getBookingByRoomId,
+  getBookingSummary,
 };
 
 export default bookingService;

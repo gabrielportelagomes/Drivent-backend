@@ -68,7 +68,7 @@ export async function changeBooking(req: AuthenticatedRequest, res: Response) {
   }
 }
 
-export async function getBooking(req: AuthenticatedRequest, res: Response) {
+export async function listBookingByRoomId(req: AuthenticatedRequest, res: Response) {
   try {
     const roomId = Number(req.params.roomId);
 
@@ -81,6 +81,19 @@ export async function getBooking(req: AuthenticatedRequest, res: Response) {
     return res.status(httpStatus.OK).send({
       result,
     });
+  } catch (error) {
+    return res.sendStatus(httpStatus.NOT_FOUND);
+  }
+}
+
+export async function listBookingSumary(req: AuthenticatedRequest, res: Response) {
+  try {
+    const { userId } = req;
+    const booking = await bookingService.getBookingSummary(userId);
+
+    const bookings = await bookingService.getBookingByRoomId(booking.roomId);
+
+    return res.status(httpStatus.OK).send({ booking, count: bookings._count });
   } catch (error) {
     return res.sendStatus(httpStatus.NOT_FOUND);
   }

@@ -50,13 +50,17 @@ async function upsertBooking({ id, roomId, userId }: UpdateParams) {
   });
 }
 
-async function findRoomByIdWithBookings(id: number) {
-  return prisma.room.findUnique({
+async function findBookingSummary(userId: number) {
+  return prisma.booking.findFirst({
     where: {
-      id,
+      userId,
     },
     include: {
-      _count: { select: { Booking: true } },
+      Room: {
+        include: {
+          Hotel: true,
+        },
+      },
     },
   });
 }
@@ -66,7 +70,7 @@ const bookingRepository = {
   findByRoomId,
   findByUserId,
   upsertBooking,
-  findRoomByIdWithBookings,
+  findBookingSummary,
 };
 
 export default bookingRepository;
