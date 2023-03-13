@@ -1,4 +1,4 @@
-import { Hotel, Prisma, PrismaClient, TicketType } from '@prisma/client';
+import { Hotel, Prisma, PrismaClient, Room, TicketType } from '@prisma/client';
 import dayjs from 'dayjs';
 import { createClient } from 'redis';
 const prisma = new PrismaClient();
@@ -43,24 +43,61 @@ async function main() {
 
   let hotel: Hotel[] | Prisma.BatchPayload = await prisma.hotel.findMany();
 
+  let drivenResort: Hotel, drivenPalace: Hotel, drivenWorld: Hotel;
+
   if (hotel.length === 0) {
-    hotel = await prisma.hotel.createMany({
-      data: [
-        {
-          name: 'Driven Resort',
-          image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTwmbknu3FZ9ChI7dnqBwKzvw5GL_d2Rs8xg&usqp=CAU',
+    drivenResort = await prisma.hotel.create({
+      data: {
+        name: 'Driven Resort',
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4K3laolx8HVedXm6eIwPwuo1gxdsLDIRrYg&usqp=CAU',
+        Rooms: {
+          createMany: {
+            data: [
+              { name: '101', capacity: 1 },
+              { name: '102', capacity: 3 },
+              { name: '103', capacity: 2 },
+              { name: '104', capacity: 2 },
+              { name: '105', capacity: 1 },
+            ],
+          },
         },
-        {
-          name: 'Driven Palace',
-          image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgmyQuyFgQGvgeVBsu2irIky-6HFZlD7c-5Q&usqp=CAU',
-        },
-        {
-          name: 'Driven World',
-          image:
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQByoba4yg07jX5RYfTL-rtRfyOduEQP9XJY4KJbI0HzKxUzXLXdVT1no8xwMPGdoDJXgs&usqp=CAU',
-        },
-      ],
+      },
     });
+
+    drivenPalace = await prisma.hotel.create({
+      data: {
+        name: 'Driven Palace',
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTo4dAcXfPFiinjwuTOeScNgcu7fMWBnBPG7w&usqp=CAU',
+        Rooms: {
+          createMany: {
+            data: [
+              { name: '101', capacity: 2 },
+              { name: '102', capacity: 1 },
+              { name: '103', capacity: 2 },
+            ],
+          },
+        },
+      },
+    });
+
+    drivenWorld = await prisma.hotel.create({
+      data: {
+        name: 'Driven World',
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtjAjb-JFAJXqcUvo0X8E2RpX--_lkjFcEEQ&usqp=CAU',
+        Rooms: {
+          createMany: {
+            data: [
+              { name: '101', capacity: 1 },
+              { name: '102', capacity: 3 },
+              { name: '103', capacity: 3 },
+              { name: '104', capacity: 1 },
+            ],
+          },
+        },
+      },
+    });
+
+    hotel = [drivenResort, drivenPalace, drivenWorld];
   }
 
   console.log({ event, ticketType, hotel });
