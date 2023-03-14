@@ -2,6 +2,7 @@ import { notFoundError, unauthorizedError } from "@/errors";
 import paymentRepository, { PaymentParams } from "@/repositories/payment-repository";
 import ticketRepository from "@/repositories/ticket-repository";
 import enrollmentRepository from "@/repositories/enrollment-repository";
+import { forbiddenError } from "@/errors/forbidden-error";
 
 async function verifyTicketAndEnrollment(ticketId: number, userId: number) {
   const ticket = await ticketRepository.findTickeyById(ticketId);
@@ -54,9 +55,20 @@ export type CardPaymentParams = {
   cvv: number
 }
 
+async function getPaymentTicketId(userId: number, ticketId: number) {
+  await verifyTicketAndEnrollment(ticketId, userId);
+
+  const payment = await paymentRepository.findPaymentByTicketId(ticketId);
+
+  if (!payment) {
+    throw forbiddenError();
+  }
+  return payment;
+}
 const paymentService = {
   getPaymentByTicketId,
   paymentProcess,
+  getPaymentTicketId
 };
 
 export default paymentService;
