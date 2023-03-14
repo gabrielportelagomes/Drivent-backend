@@ -4,13 +4,9 @@ import paymentService from '../payments-service';
 import ticketService from '../tickets-service';
 
 async function getActivities(userId: number) {
-  const ticket = await ticketService.getTicketByUserId(userId);
+  const ticket = await ticketService.getRemoteTicketByUserId(userId); //ticket NOT FOUND, e remote FORBBIDEN
 
-  const payment = await paymentService.getPaymentByTicketId(userId, ticket.id);
-
-  if (ticket.TicketType.isRemote || !payment) {
-    throw forbiddenError();
-  }
+  const payment = await paymentService.getPaymentTicketId(userId, ticket.id);
 
   const activities = await activityRepository.findManyActiviTypes();
 

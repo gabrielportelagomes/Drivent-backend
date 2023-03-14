@@ -13,6 +13,9 @@ export async function getActivities(req: AuthenticatedRequest, res: Response) {
     if(error.name === "forbidenError"){
       return res.sendStatus(httpStatus.FORBIDDEN);
     }
+    if(error.name === "NotFoundError"){
+      return res.sendStatus(httpStatus.NOT_FOUND);
+    }
     return res.sendStatus(httpStatus.NO_CONTENT);
   }
 }
