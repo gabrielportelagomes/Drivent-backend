@@ -138,3 +138,22 @@ model Booking {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+model ActivityType {
+ id            Int      @id @default(autoincrement())
+ name          String   @db.VarChar(255)
+ schedules     String   @db.VarChar(255)
+ capacity      Int
+ activityDate  String   @db.VarChar(255)
+ place         String   @db.VarChar(255)
+ createdAt     DateTime @default(now())
+ updatedAt     DateTime @updatedAt
+ }
+ 
+ model Activity {
+ id             Int      @id @default(autoincrement())
+ activityTypeId Int
+ enrollmentId   Int     @unique
+ createdAt      DateTime @default(now())
+ updatedAt      DateTime @updatedAt
+ }

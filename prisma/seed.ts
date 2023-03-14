@@ -1,4 +1,5 @@
-import { Hotel, Prisma, PrismaClient, TicketType } from '@prisma/client';
+import { ActivityType, Hotel, Prisma, PrismaClient, TicketType } from '@prisma/client';
+//import { ActivityType } from "../src/protocols"
 import dayjs from 'dayjs';
 import { createClient } from 'redis';
 const prisma = new PrismaClient();
@@ -63,7 +64,36 @@ async function main() {
     });
   }
 
-  console.log({ event, ticketType, hotel });
+  let activityType: ActivityType[] | Prisma.BatchPayload = await prisma.activityType.findMany();
+  if (activityType.length === 0) {
+    activityType = await prisma.activityType.createMany({
+      data: [
+        {
+          name: 'Minecraft: montando o PC ideal',
+          schedules: '12:00-14:00',
+          capacity: 20,
+          activityDate: 'Terça, 23/03',
+          place: 'Auditório Principal',
+        },
+        {
+          name: 'LoL: montando o PC ideal',
+          schedules: '10:00-13:00',
+          capacity: 15,
+          activityDate: 'Quarta, 22/03',
+          place: 'Auditório Lateral',
+        },
+        {
+          name: 'Coding Workshop',
+          schedules: '18:00-20:00',
+          capacity: 10,
+          activityDate: 'Quinta, 21/03',
+          place: 'Sala de Workshop',
+        },
+      ],
+    });
+  }
+
+  console.log({ event, ticketType, hotel, activityType });
 }
 
 main()

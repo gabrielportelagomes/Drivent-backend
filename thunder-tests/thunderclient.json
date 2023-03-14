@@ -1,0 +1,435 @@
+[
+  {
+    "_id": "2fc89259-11cc-4269-b6ef-140964ffbec6",
+    "colId": "5efa6841-de45-4b12-8409-3b745c0afbaa",
+    "containerId": "a6692082-d84e-4df8-8bfc-19752596c795",
+    "name": "/users/",
+    "url": "localhost:4000/users/",
+    "method": "POST",
+    "sortNum": 10000,
+    "created": "2023-03-10T23:27:57.068Z",
+    "modified": "2023-03-10T23:30:11.453Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"email\": \"sabta@gmail.com\",\n  \"password\": \"123456\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "a4a69195-3b59-4202-a849-e401f18ab751",
+    "colId": "5efa6841-de45-4b12-8409-3b745c0afbaa",
+    "containerId": "f0d9c498-25de-4321-9b49-94c8e1996fb3",
+    "name": "/auth/sign-in/",
+    "url": "localhost:4000/auth/sign-in/",
+    "method": "POST",
+    "sortNum": 20000,
+    "created": "2023-03-10T23:27:57.069Z",
+    "modified": "2023-03-10T23:27:57.069Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"email\": \"sabta@gmail.com\",\n  \"password\": \"123456\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "3118eeff-991d-40c3-85c3-a9a75d5942fb",
+    "colId": "5efa6841-de45-4b12-8409-3b745c0afbaa",
+    "containerId": "589146f3-1024-41f5-aaae-f890626e931f",
+    "name": "/event/",
+    "url": "localhost:4000/event",
+    "method": "GET",
+    "sortNum": 30000,
+    "created": "2023-03-10T23:27:57.070Z",
+    "modified": "2023-03-10T23:27:57.070Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "79f665cc-b286-4e4a-91dd-ed8f3090a7e1",
+    "colId": "5efa6841-de45-4b12-8409-3b745c0afbaa",
+    "containerId": "5022e6ac-9ec3-4f3a-9fdb-836d017d8dad",
+    "name": "/enrollments/cep/",
+    "url": "localhost:4000/enrollments/cep?cep=59082130",
+    "method": "GET",
+    "sortNum": 40000,
+    "created": "2023-03-10T23:27:57.071Z",
+    "modified": "2023-03-10T23:27:57.071Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "cep",
+        "value": "59082130",
+        "isPath": false
+      }
+    ],
+    "tests": []
+  },
+  {
+    "_id": "9684fce7-cb7e-4bd9-8b75-a2d21a233e4d",
+    "colId": "5efa6841-de45-4b12-8409-3b745c0afbaa",
+    "containerId": "5022e6ac-9ec3-4f3a-9fdb-836d017d8dad",
+    "name": "/enrollments/",
+    "url": "localhost:4000/enrollments/",
+    "method": "GET",
+    "sortNum": 50000,
+    "created": "2023-03-10T23:27:57.072Z",
+    "modified": "2023-03-14T04:41:06.368Z",
+    "headers": [
+      {
+        "name": "Authorization",
+        "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY3ODc2ODU3Mn0.KnKZnjAxrbhZDDZJOLrLbYfi0AhpQ1pmGqHCb46oRCQ"
+      },
+      {
+        "name": "Accept",
+        "value": "*/*",
+        "isDisabled": true
+      },
+      {
+        "name": "User-Agent",
+        "value": "Thunder Client (https://www.thunderclient.com)",
+        "isDisabled": true
+      }
+    ],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "f6a9d4c8-f3f9-4ec2-b94e-48ee6fc6a89f",
+    "colId": "5efa6841-de45-4b12-8409-3b745c0afbaa",
+    "containerId": "5022e6ac-9ec3-4f3a-9fdb-836d017d8dad",
+    "name": "/enrollments/",
+    "url": "localhost:4000/enrollments/",
+    "method": "POST",
+    "sortNum": 60000,
+    "created": "2023-03-10T23:27:57.073Z",
+    "modified": "2023-03-14T04:37:18.628Z",
+    "headers": [
+      {
+        "name": "Authorization",
+        "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY3ODc2ODU3Mn0.KnKZnjAxrbhZDDZJOLrLbYfi0AhpQ1pmGqHCb46oRCQ"
+      },
+      {
+        "name": "Accept",
+        "value": "*/*",
+        "isDisabled": true
+      },
+      {
+        "name": "User-Agent",
+        "value": "Thunder Client (https://www.thunderclient.com)",
+        "isDisabled": true
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n \"name\": \"Sabta\",\n  \"cpf\": \"07614956494\",\n  \"birthday\": \"1988-08-14T00:00:00.000Z\",\n  \"phone\": \"(84)99957-8788\",\n  \"address\": {\n    \"cep\": \"59082-130\",\n    \"street\": \"Rua Missionário Joel Carlson\",\n    \"city\": \"Natal\",\n    \"number\": \"1750\",\n    \"state\": \"RN\",\n    \"neighborhood\": \"Capim Macio\",\n    \"addressDetail\": \"prox ao Motel\"\n  }\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "e86723b8-f826-4983-8e3d-78d55d64aa11",
+    "colId": "5efa6841-de45-4b12-8409-3b745c0afbaa",
+    "containerId": "6be8654c-b863-47cd-900a-9d5b8f56fe19",
+    "name": "GET /booking",
+    "url": "localhost:4000/booking",
+    "method": "GET",
+    "sortNum": 70000,
+    "created": "2023-03-10T23:27:57.074Z",
+    "modified": "2023-03-14T04:42:53.586Z",
+    "headers": [
+      {
+        "name": "Authorization",
+        "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY3ODc2ODU3Mn0.KnKZnjAxrbhZDDZJOLrLbYfi0AhpQ1pmGqHCb46oRCQ"
+      },
+      {
+        "name": "Accept",
+        "value": "*/*",
+        "isDisabled": true
+      },
+      {
+        "name": "User-Agent",
+        "value": "Thunder Client (https://www.thunderclient.com)",
+        "isDisabled": true
+      }
+    ],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "051c75ee-a95e-4605-aaba-86c5bffa4520",
+    "colId": "5efa6841-de45-4b12-8409-3b745c0afbaa",
+    "containerId": "5f082141-d33f-4354-9f65-902833e83fdc",
+    "name": "GET /hotels",
+    "url": "localhost:4000/hotels",
+    "method": "GET",
+    "sortNum": 80000,
+    "created": "2023-03-10T23:34:41.672Z",
+    "modified": "2023-03-14T04:42:37.012Z",
+    "headers": [
+      {
+        "name": "Authorization",
+        "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY3ODc2ODU3Mn0.KnKZnjAxrbhZDDZJOLrLbYfi0AhpQ1pmGqHCb46oRCQ"
+      }
+    ],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "e8f7424e-f7fc-4492-98fc-90e835aea8db",
+    "colId": "5efa6841-de45-4b12-8409-3b745c0afbaa",
+    "containerId": "5f082141-d33f-4354-9f65-902833e83fdc",
+    "name": "POST /hotels/:hotelId",
+    "url": "localhost:4000/hotels?hotelId=1",
+    "method": "POST",
+    "sortNum": 90000,
+    "created": "2023-03-10T23:34:59.538Z",
+    "modified": "2023-03-10T23:45:50.032Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "hotelId",
+        "value": "1",
+        "isPath": false
+      }
+    ],
+    "tests": []
+  },
+  {
+    "_id": "257f00fb-988e-460d-8a3c-e32b06f4565b",
+    "colId": "5efa6841-de45-4b12-8409-3b745c0afbaa",
+    "containerId": "6be8654c-b863-47cd-900a-9d5b8f56fe19",
+    "name": "POST /booking ",
+    "url": "localhost:4000/booking",
+    "method": "POST",
+    "sortNum": 80000,
+    "created": "2023-03-10T23:35:59.272Z",
+    "modified": "2023-03-11T16:20:01.943Z",
+    "headers": [
+      {
+        "name": "Authorization",
+        "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY3ODQ5MTAyMH0.yMVKRi6WCGUUGlCFijC5KBKcYz8cPpyVyGQAzg6SnLM"
+      },
+      {
+        "name": "Accept",
+        "value": "*/*",
+        "isDisabled": true
+      },
+      {
+        "name": "User-Agent",
+        "value": "Thunder Client (https://www.thunderclient.com)",
+        "isDisabled": true
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n\t\"roomId\": 3\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "dc18ce19-6007-4efb-bfa1-f6360012b980",
+    "colId": "5efa6841-de45-4b12-8409-3b745c0afbaa",
+    "containerId": "6be8654c-b863-47cd-900a-9d5b8f56fe19",
+    "name": "PUT /booking/:bookingId",
+    "url": "localhost:4000/booking?bookingId=1",
+    "method": "PUT",
+    "sortNum": 90000,
+    "created": "2023-03-10T23:36:36.503Z",
+    "modified": "2023-03-11T00:36:04.087Z",
+    "headers": [
+      {
+        "name": "Authorization",
+        "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY3ODQ5MTAyMH0.yMVKRi6WCGUUGlCFijC5KBKcYz8cPpyVyGQAzg6SnLM"
+      },
+      {
+        "name": "Accept",
+        "value": "*/*",
+        "isDisabled": true
+      },
+      {
+        "name": "User-Agent",
+        "value": "Thunder Client (https://www.thunderclient.com)",
+        "isDisabled": true
+      }
+    ],
+    "params": [
+      {
+        "name": "bookingId",
+        "value": "1",
+        "isPath": false
+      }
+    ],
+    "body": {
+      "type": "json",
+      "raw": "{\n\t\"roomId\": 1\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "423a1223-656a-48a2-82c5-b219a3145515",
+    "colId": "5efa6841-de45-4b12-8409-3b745c0afbaa",
+    "containerId": "2154860b-1fdb-47c2-a1c9-8343ba4b6ece",
+    "name": "GET /tickets/types",
+    "url": "localhost:4000/enrollments/cep?cep=59082130",
+    "method": "GET",
+    "sortNum": 40000,
+    "created": "2023-03-10T23:37:54.666Z",
+    "modified": "2023-03-10T23:37:54.666Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "cep",
+        "value": "59082130",
+        "isPath": false
+      }
+    ],
+    "tests": []
+  },
+  {
+    "_id": "e95c715c-4024-4e65-89ea-b2efd91ef52c",
+    "colId": "5efa6841-de45-4b12-8409-3b745c0afbaa",
+    "containerId": "2154860b-1fdb-47c2-a1c9-8343ba4b6ece",
+    "name": "GET /tickets",
+    "url": "localhost:4000/enrollments/",
+    "method": "GET",
+    "sortNum": 50000,
+    "created": "2023-03-10T23:37:54.667Z",
+    "modified": "2023-03-10T23:37:54.666Z",
+    "headers": [
+      {
+        "name": "Authorization",
+        "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY3ODQ5MTAyMH0.yMVKRi6WCGUUGlCFijC5KBKcYz8cPpyVyGQAzg6SnLM"
+      },
+      {
+        "name": "Accept",
+        "value": "*/*",
+        "isDisabled": true
+      },
+      {
+        "name": "User-Agent",
+        "value": "Thunder Client (https://www.thunderclient.com)",
+        "isDisabled": true
+      }
+    ],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "8930ea4d-c39c-4211-903c-8ab1c49acee8",
+    "colId": "5efa6841-de45-4b12-8409-3b745c0afbaa",
+    "containerId": "2154860b-1fdb-47c2-a1c9-8343ba4b6ece",
+    "name": "POST /tickets",
+    "url": "localhost:4000/enrollments/",
+    "method": "POST",
+    "sortNum": 60000,
+    "created": "2023-03-10T23:37:54.668Z",
+    "modified": "2023-03-10T23:37:54.666Z",
+    "headers": [
+      {
+        "name": "Authorization",
+        "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY3NDc1NTE5MH0.FpdCu-RUR76pNz_RSJBqE3ARlkVCJHSpHgHi2_qOA8k"
+      },
+      {
+        "name": "Accept",
+        "value": "*/*",
+        "isDisabled": true
+      },
+      {
+        "name": "User-Agent",
+        "value": "Thunder Client (https://www.thunderclient.com)",
+        "isDisabled": true
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n \"name\": \"Erick\",\n  \"cpf\": \"07614956494\",\n  \"birthday\": \"1988-08-14T00:00:00.000Z\",\n  \"phone\": \"(84)99957-8788\",\n  \"address\": {\n    \"cep\": \"59082-130\",\n    \"street\": \"Rua Missionário Joel Carlson\",\n    \"city\": \"Natal\",\n    \"number\": \"1750\",\n    \"state\": \"RN\",\n    \"neighborhood\": \"Capim Macio\",\n    \"addressDetail\": \"prox ao Motel\"\n  }\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "29f295b9-89a9-4079-803b-74788890cbc4",
+    "colId": "5efa6841-de45-4b12-8409-3b745c0afbaa",
+    "containerId": "5d1b28ee-0596-4a9d-b810-3567ec41828c",
+    "name": "GET /payments?ticketId=1",
+    "url": "localhost:4000/payments?ticketId=1",
+    "method": "GET",
+    "sortNum": 90000,
+    "created": "2023-03-10T23:39:30.229Z",
+    "modified": "2023-03-14T04:42:27.320Z",
+    "headers": [
+      {
+        "name": "Authorization",
+        "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY3ODc2ODU3Mn0.KnKZnjAxrbhZDDZJOLrLbYfi0AhpQ1pmGqHCb46oRCQ"
+      }
+    ],
+    "params": [
+      {
+        "name": "ticketId",
+        "value": "1",
+        "isPath": false
+      }
+    ],
+    "tests": []
+  },
+  {
+    "_id": "b479166c-caf9-42a2-bfbd-e26583d49efa",
+    "colId": "5efa6841-de45-4b12-8409-3b745c0afbaa",
+    "containerId": "5d1b28ee-0596-4a9d-b810-3567ec41828c",
+    "name": "POST /payments/process",
+    "url": "localhost:4000/payments/process",
+    "method": "POST",
+    "sortNum": 100000,
+    "created": "2023-03-10T23:39:34.614Z",
+    "modified": "2023-03-10T23:43:07.934Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n\t\"ticketId\": 2,\n\t\"cardData\": {\n\t\t\"issuer\": \"VISA\",\n    \"number\": 123456789,\n    \"name\": \"Sabta Alencar\",\n    \"expirationDate\": \"2025-10-06T15:23:45.678Z\",\n    \"cvv\": 1234\n\t}\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "e3bdd871-c226-4e98-979b-fbf2ceee45a1",
+    "colId": "5efa6841-de45-4b12-8409-3b745c0afbaa",
+    "containerId": "e973bfcd-dd6a-4b18-91b2-6b86d36bba9e",
+    "name": "GET /activity",
+    "url": "localhost:4000/activity",
+    "method": "GET",
+    "sortNum": 70000,
+    "created": "2023-03-14T04:35:21.707Z",
+    "modified": "2023-03-14T04:36:24.850Z",
+    "headers": [
+      {
+        "name": "Authorization",
+        "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY3ODc2ODU3Mn0.KnKZnjAxrbhZDDZJOLrLbYfi0AhpQ1pmGqHCb46oRCQ"
+      },
+      {
+        "name": "Accept",
+        "value": "*/*",
+        "isDisabled": true
+      },
+      {
+        "name": "User-Agent",
+        "value": "Thunder Client (https://www.thunderclient.com)",
+        "isDisabled": true
+      }
+    ],
+    "params": [],
+    "tests": []
+  }
+]

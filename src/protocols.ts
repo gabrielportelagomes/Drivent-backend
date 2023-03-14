@@ -49,3 +49,22 @@ export type CreatePayment = {
 export type CodeSchema = {
   code: string;
 };
+
+export type ActivityType = {
+  id: number
+  name: string
+  schedules: string
+  capacity: number
+  activityDate: string
+  place: string
+  createdAt: Date
+  updatedAt: Date
+}
+
+export type Activity = {
+  id: number
+  activityTypeId: number
+  enrollmentId: number
+  createdAt: Date
+  updatedAt: Date
+}
