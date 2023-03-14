@@ -2,7 +2,6 @@ import 'reflect-metadata';
 import 'express-async-errors';
 import express, { Express } from 'express';
 import cors from 'cors';
-import { createClient } from 'redis';
 
 import { loadEnv, connectDb, disconnectDB } from '@/config';
 
@@ -20,12 +19,9 @@ import {
   bookingRouter,
 } from '@/routers';
 import { activityRouter } from './routers/activity-router';
+import { conectRedis } from './config/redis';
 
 const app = express();
-
-export const redis = createClient({
-  url: process.env.REDIS_URL,
-});
 
 app
   .use(cors())
@@ -47,12 +43,12 @@ export function init(): Promise<Express> {
   return Promise.resolve(app);
 }
 
-export async function close(): Promise<void> {
-  await disconnectDB();
+export async function initRedis(): Promise<void> {
+  await conectRedis.connect();
 }
 
-export async function initRedis(): Promise<void> {
-  await redis.connect();
+export async function close(): Promise<void> {
+  await disconnectDB();
 }
 
 export default app;
