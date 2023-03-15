@@ -5,7 +5,10 @@ module.exports = {
   transform: {
     ".+\\.ts$": "ts-jest",
   },
-  testMatch: ["<rootDir>/tests/**/*.(test|spec).ts"],
+  testMatch: [
+    "<rootDir>/tests/unit/**/*.test.ts",
+    "<rootDir>/tests/integration/**/*.test.ts"
+  ], 
   setupFiles: ["<rootDir>/tests/setup-envs.ts"],
   moduleNameMapper: {
     "@/(.*)": "<rootDir>/src/$1",

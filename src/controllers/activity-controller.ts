@@ -4,18 +4,18 @@ import { Response } from 'express';
 import httpStatus from 'http-status';
 
 export async function getActivities(req: AuthenticatedRequest, res: Response) {
-  const  userId  = req.userId as number;
+  const userId = req.userId as number;
   try {
-    const activies = await activitiesService.getActivities(userId);
+    const activitiesTypes = await activitiesService.getActivities(userId);
 
-    return res.status(httpStatus.OK).send(activies);
+    return res.status(httpStatus.OK).send(activitiesTypes);
   } catch (error) {
-    if(error.name === "forbidenError"){
+    if (error.name === 'forbidenError') {
       return res.sendStatus(httpStatus.FORBIDDEN);
     }
-    if(error.name === "NotFoundError"){
-      return res.sendStatus(httpStatus.NOT_FOUND);
+    if (error.name === 'NotFoundError') {
+      return res.status(httpStatus.NOT_FOUND).send({});
     }
-    return res.sendStatus(httpStatus.NO_CONTENT);
+    return res.status(httpStatus.NO_CONTENT).send({});
   }
 }

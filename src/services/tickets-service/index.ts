@@ -51,12 +51,14 @@ async function getRemoteTicketByUserId(userId: number) {
     throw notFoundError();
   }
   const ticket = await ticketRepository.findTicketByEnrollmentId(enrollment.id);
+
   if (ticket.TicketType.isRemote) {
     throw forbiddenError();
   }
-  if (!ticket) {
+  if (!ticket || !ticket.TicketType) {
     throw notFoundError();
   }
+  
   return ticket;
 }
 
