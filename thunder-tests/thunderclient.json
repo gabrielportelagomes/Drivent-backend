@@ -301,15 +301,15 @@
     "colId": "5efa6841-de45-4b12-8409-3b745c0afbaa",
     "containerId": "2154860b-1fdb-47c2-a1c9-8343ba4b6ece",
     "name": "GET /tickets",
-    "url": "localhost:4000/enrollments/",
+    "url": "localhost:4000/tickets/",
     "method": "GET",
     "sortNum": 50000,
     "created": "2023-03-10T23:37:54.667Z",
-    "modified": "2023-03-10T23:37:54.666Z",
+    "modified": "2023-03-15T18:04:27.908Z",
     "headers": [
       {
         "name": "Authorization",
-        "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY3ODQ5MTAyMH0.yMVKRi6WCGUUGlCFijC5KBKcYz8cPpyVyGQAzg6SnLM"
+        "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY3ODkwMzQ0MH0.yPraCI3h2mIiAmBSE2ctyGzdRoWWasixc_AmPiWSb3I"
       },
       {
         "name": "Accept",

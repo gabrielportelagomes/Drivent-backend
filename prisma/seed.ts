@@ -1,5 +1,4 @@
 import { ActivityType, Hotel, Prisma, PrismaClient, Room, TicketType } from '@prisma/client';
-//import { ActivityType } from "../src/protocols"
 import dayjs from 'dayjs';
 import { createClient } from 'redis';
 const prisma = new PrismaClient();
