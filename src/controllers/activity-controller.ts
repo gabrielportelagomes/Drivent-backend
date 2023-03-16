@@ -33,3 +33,15 @@ export async function postActivity(req: AuthenticatedRequest, res: Response) {
     return res.sendStatus(httpStatus.NOT_FOUND);
   }
 }
+
+export async function getUserActivities(req: AuthenticatedRequest, res: Response) {
+  const { userId } = req;
+
+  try {
+    const activities = await activitiesService.findUserActivities(userId);
+
+    return res.status(httpStatus.CREATED).send(activities);
+  } catch (error) {
+    return res.sendStatus(httpStatus.NOT_FOUND);
+  }
+}

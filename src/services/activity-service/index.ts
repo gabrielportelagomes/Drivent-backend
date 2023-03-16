@@ -46,9 +46,26 @@ async function createActivity(userId: number, activityTypeId: number) {
   return activity;
 }
 
+async function findUserActivities(userId: number) {
+  const enrollment = await enrollmentRepository.findWithAddressByUserId(userId);
+
+  if (!enrollment) {
+    throw notFoundError();
+  }
+
+  const activity = await activityRepository.findActivitiesByEnrollmentId(enrollment.id);
+
+  if (!activity) {
+    throw notFoundError();
+  }
+
+  return activity;
+}
+
 const activitiesService = {
   getActivities,
   createActivity,
+  findUserActivities,
 };
 
 export default activitiesService;

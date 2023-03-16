@@ -13,9 +13,18 @@ async function createActivity(activityTypeId: number, enrollmentId: number) {
   });
 }
 
+async function findActivitiesByEnrollmentId(enrollmentId: number) {
+  return prisma.activity.findMany({
+    where: {
+      enrollmentId,
+    },
+  });
+}
+
 const activityRepository = {
   findManyActiviTypes,
   createActivity,
+  findActivitiesByEnrollmentId,
 };
 
 export default activityRepository;
