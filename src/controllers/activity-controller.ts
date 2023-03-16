@@ -1,4 +1,5 @@
 import { AuthenticatedRequest } from '@/middlewares';
+import { ActivityTypeId } from '@/protocols';
 import activitiesService from '@/services/activity-service';
 import { Response } from 'express';
 import httpStatus from 'http-status';
@@ -17,5 +18,30 @@ export async function getActivities(req: AuthenticatedRequest, res: Response) {
       return res.status(httpStatus.NOT_FOUND).send({});
     }
     return res.status(httpStatus.NO_CONTENT).send({});
+  }
+}
+
+export async function postActivity(req: AuthenticatedRequest, res: Response) {
+  const { userId } = req;
+  const { activityTypeId } = req.body as ActivityTypeId;
+
+  try {
+    const activity = await activitiesService.createActivity(userId, activityTypeId);
+
+    return res.status(httpStatus.CREATED).send(activity);
+  } catch (error) {
+    return res.sendStatus(httpStatus.NOT_FOUND);
+  }
+}
+
+export async function getUserActivities(req: AuthenticatedRequest, res: Response) {
+  const { userId } = req;
+
+  try {
+    const activities = await activitiesService.findUserActivities(userId);
+
+    return res.status(httpStatus.CREATED).send(activities);
+  } catch (error) {
+    return res.sendStatus(httpStatus.NOT_FOUND);
   }
 }

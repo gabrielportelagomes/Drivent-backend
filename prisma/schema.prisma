@@ -42,17 +42,18 @@ model Event {
 }
 
 model Enrollment {
-  id        Int       @id @default(autoincrement())
-  name      String    @db.VarChar(255)
-  cpf       String    @db.VarChar(255)
+  id        Int        @id @default(autoincrement())
+  name      String     @db.VarChar(255)
+  cpf       String     @db.VarChar(255)
   birthday  DateTime
-  phone     String    @db.VarChar(255)
-  userId    Int       @unique
-  User      User      @relation(fields: [userId], references: [id])
+  phone     String     @db.VarChar(255)
+  userId    Int        @unique
+  User      User       @relation(fields: [userId], references: [id])
   Address   Address[]
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
   Ticket    Ticket[]
+  Activity  Activity[]
 }
 
 model Address {
@@ -140,20 +141,23 @@ model Booking {
 }
 
 model ActivityType {
- id            Int      @id @default(autoincrement())
- name          String   @db.VarChar(255)
- schedules     String   @db.VarChar(255)
- capacity      Int
- activityDate  String   @db.VarChar(255)
- place         String   @db.VarChar(255)
- createdAt     DateTime @default(now())
- updatedAt     DateTime @updatedAt
- }
- 
- model Activity {
- id             Int      @id @default(autoincrement())
- activityTypeId Int
- enrollmentId   Int     @unique
- createdAt      DateTime @default(now())
- updatedAt      DateTime @updatedAt
- }
+  id           Int        @id @default(autoincrement())
+  name         String     @db.VarChar(255)
+  schedules    String     @db.VarChar(255)
+  capacity     Int
+  activityDate String     @db.VarChar(255)
+  place        String     @db.VarChar(255)
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  Activity     Activity[]
+}
+
+model Activity {
+  id             Int          @id @default(autoincrement())
+  activityTypeId Int
+  ActivityType   ActivityType @relation(fields: [activityTypeId], references: [id])
+  enrollmentId   Int
+  Enrollment     Enrollment   @relation(fields: [enrollmentId], references: [id])
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+}

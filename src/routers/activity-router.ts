@@ -1,11 +1,14 @@
-import { getActivities } from '@/controllers/activity-controller';
-import { authenticateToken } from '@/middlewares';
+import { getActivities, getUserActivities, postActivity } from '@/controllers/activity-controller';
+import { authenticateToken, validateBody } from '@/middlewares';
+import { createActivitySchema } from '@/schemas';
 import { Router } from 'express';
 
 const activityRouter = Router();
 
 activityRouter
-.all("/*", authenticateToken)
-.get('/', getActivities);
+  .all('/*', authenticateToken)
+  .get('/', getActivities)
+  .get('/user', getUserActivities)
+  .post('/', validateBody(createActivitySchema), postActivity);
 
 export { activityRouter };
