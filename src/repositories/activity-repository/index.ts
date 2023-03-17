@@ -18,6 +18,25 @@ async function findActivitiesByEnrollmentId(enrollmentId: number) {
     where: {
       enrollmentId,
     },
+    include: {
+      ActivityType: true,
+    },
+  });
+}
+
+async function findActivityTypeById(id: number) {
+  return prisma.activityType.findUnique({
+    where: {
+      id,
+    },
+  });
+}
+
+async function findActivityReservations(activityTypeId: number) {
+  return prisma.activity.count({
+    where: {
+      activityTypeId,
+    },
   });
 }
 
@@ -25,6 +44,8 @@ const activityRepository = {
   findManyActiviTypes,
   createActivity,
   findActivitiesByEnrollmentId,
+  findActivityTypeById,
+  findActivityReservations,
 };
 
 export default activityRepository;
