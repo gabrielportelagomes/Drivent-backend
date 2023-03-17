@@ -21,6 +21,18 @@ export async function getActivities(req: AuthenticatedRequest, res: Response) {
   }
 }
 
+export async function getUserActivities(req: AuthenticatedRequest, res: Response) {
+  const { userId } = req;
+
+  try {
+    const activities = await activitiesService.findUserActivities(userId);
+
+    return res.status(httpStatus.CREATED).send(activities);
+  } catch (error) {
+    return res.sendStatus(httpStatus.NOT_FOUND);
+  }
+}
+
 export async function postActivity(req: AuthenticatedRequest, res: Response) {
   const { userId } = req;
   const { activityTypeId } = req.body as ActivityTypeId;
@@ -30,18 +42,12 @@ export async function postActivity(req: AuthenticatedRequest, res: Response) {
 
     return res.status(httpStatus.CREATED).send(activity);
   } catch (error) {
-    return res.sendStatus(httpStatus.NOT_FOUND);
-  }
-}
-
-export async function getUserActivities(req: AuthenticatedRequest, res: Response) {
-  const { userId } = req;
-
-  try {
-    const activities = await activitiesService.findUserActivities(userId);
-
-    return res.status(httpStatus.CREATED).send(activities);
-  } catch (error) {
+    if (error.name === 'forbidenError') {
+      return res.sendStatus(httpStatus.FORBIDDEN);
+    }
+    if (error.name === 'timeConflictError') {
+      return res.status(httpStatus.CONFLICT).send({ message: error.message });
+    }
     return res.sendStatus(httpStatus.NOT_FOUND);
   }
 }
