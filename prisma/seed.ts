@@ -149,7 +149,7 @@ async function main() {
         {
           name: 'Coding Workshop',
           schedules: '18:00-20:00',
-          capacity: 10,
+          capacity: 0,
           activityDate: 'Terça, 21/03',
           place: 'Sala de Workshop',
         },
