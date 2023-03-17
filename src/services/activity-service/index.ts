@@ -48,7 +48,7 @@ async function findUserActivities(userId: number) {
 
   const activity = await activityRepository.findActivitiesByEnrollmentId(enrollment.id);
 
-  if (!activity) {
+  if (activity.length === 0) {
     throw notFoundError();
   }
 
@@ -60,21 +60,21 @@ async function createActivity(userId: number, activityTypeId: number) {
 
   const activityType = await activityRepository.findActivityTypeById(activityTypeId);
 
+  if (!activityType) {
+    throw notFoundError();
+  }
+
   const reservations = await activityRepository.findActivityReservations(activityType.id);
 
   if (activityType.capacity <= reservations) {
     throw forbiddenError();
   }
 
-  if (!activityType) {
-    throw notFoundError();
-  }
-
   const schedule = activityType.schedules.split('-');
   const startTime = Number(schedule[0].split(':')[0]) + Number(schedule[0].split(':')[1]) / 60;
   const endTime = Number(schedule[1].split(':')[0]) + Number(schedule[1].split(':')[1]) / 60;
 
-  const userActivities = await findUserActivities(userId);
+  const userActivities = await activityRepository.findActivitiesByEnrollmentId(enrollment.id);
 
   const repeatedActivity = userActivities.filter((activity) => activity.activityTypeId === activityType.id);
 

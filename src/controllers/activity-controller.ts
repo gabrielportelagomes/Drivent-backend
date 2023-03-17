@@ -27,7 +27,7 @@ export async function getUserActivities(req: AuthenticatedRequest, res: Response
   try {
     const activities = await activitiesService.findUserActivities(userId);
 
-    return res.status(httpStatus.CREATED).send(activities);
+    return res.status(httpStatus.OK).send(activities);
   } catch (error) {
     return res.sendStatus(httpStatus.NOT_FOUND);
   }
