@@ -40,11 +40,7 @@ async function checkEnrollmentTicket(userId: number) {
 }
 
 async function findUserActivities(userId: number) {
-  const enrollment = await enrollmentRepository.findWithAddressByUserId(userId);
-
-  if (!enrollment) {
-    throw notFoundError();
-  }
+  const enrollment = await checkEnrollmentTicket(userId);
 
   const activity = await activityRepository.findActivitiesByEnrollmentId(enrollment.id);
 
