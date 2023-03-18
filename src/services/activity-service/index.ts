@@ -67,8 +67,8 @@ async function createActivity(userId: number, activityTypeId: number) {
   }
 
   const schedule = activityType.schedules.split('-');
-  const startTime = Number(schedule[0].split(':')[0]) + Number(schedule[0].split(':')[1]) / 60;
-  const endTime = Number(schedule[1].split(':')[0]) + Number(schedule[1].split(':')[1]) / 60;
+  const startTime = Number(schedule[0].split(':')[0]) + Number((Number(schedule[0].split(':')[1]) / 60).toFixed(4));
+  const endTime = Number(schedule[1].split(':')[0]) + Number((Number(schedule[1].split(':')[1]) / 60).toFixed(4));
 
   const userActivities = await activityRepository.findActivitiesByEnrollmentId(enrollment.id);
 
@@ -88,8 +88,10 @@ async function createActivity(userId: number, activityTypeId: number) {
       Number(activityDate.split('/')[1]) === Number(activityTypeDate.split('/')[1])
     ) {
       const schedule = activity.ActivityType.schedules.split('-');
-      const newActivityStartTime = Number(schedule[0].split(':')[0]) + Number(schedule[0].split(':')[1]) / 60;
-      const newActivityEndTime = Number(schedule[1].split(':')[0]) + Number(schedule[1].split(':')[1]) / 60;
+      const newActivityStartTime =
+        Number(schedule[0].split(':')[0]) + Number((Number(schedule[0].split(':')[1]) / 60).toFixed(4));
+      const newActivityEndTime =
+        Number(schedule[1].split(':')[0]) + Number((Number(schedule[1].split(':')[1]) / 60).toFixed(4));
       if (newActivityStartTime >= startTime && newActivityStartTime <= endTime) {
         conflict = true;
         return;
