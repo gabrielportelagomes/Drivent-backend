@@ -40,11 +40,7 @@ async function checkEnrollmentTicket(userId: number) {
 }
 
 async function findUserActivities(userId: number) {
-  const enrollment = await enrollmentRepository.findWithAddressByUserId(userId);
-
-  if (!enrollment) {
-    throw notFoundError();
-  }
+  const enrollment = await checkEnrollmentTicket(userId);
 
   const activity = await activityRepository.findActivitiesByEnrollmentId(enrollment.id);
 
@@ -71,8 +67,8 @@ async function createActivity(userId: number, activityTypeId: number) {
   }
 
   const schedule = activityType.schedules.split('-');
-  const startTime = Number(schedule[0].split(':')[0]) + Number(schedule[0].split(':')[1]) / 60;
-  const endTime = Number(schedule[1].split(':')[0]) + Number(schedule[1].split(':')[1]) / 60;
+  const startTime = Number(schedule[0].split(':')[0]) + Number((Number(schedule[0].split(':')[1]) / 60).toFixed(4));
+  const endTime = Number(schedule[1].split(':')[0]) + Number((Number(schedule[1].split(':')[1]) / 60).toFixed(4));
 
   const userActivities = await activityRepository.findActivitiesByEnrollmentId(enrollment.id);
 
@@ -92,12 +88,14 @@ async function createActivity(userId: number, activityTypeId: number) {
       Number(activityDate.split('/')[1]) === Number(activityTypeDate.split('/')[1])
     ) {
       const schedule = activity.ActivityType.schedules.split('-');
-      const newActivityStartTime = Number(schedule[0].split(':')[0]) + Number(schedule[0].split(':')[1]) / 60;
-      const newActivityEndTime = Number(schedule[1].split(':')[0]) + Number(schedule[1].split(':')[1]) / 60;
-      if (newActivityStartTime >= startTime && newActivityStartTime <= endTime) {
+      const newActivityStartTime =
+        Number(schedule[0].split(':')[0]) + Number((Number(schedule[0].split(':')[1]) / 60).toFixed(4));
+      const newActivityEndTime =
+        Number(schedule[1].split(':')[0]) + Number((Number(schedule[1].split(':')[1]) / 60).toFixed(4));
+      if (startTime >= newActivityStartTime && startTime <= newActivityEndTime) {
         conflict = true;
         return;
-      } else if (newActivityEndTime >= startTime && newActivityEndTime <= endTime) {
+      } else if (endTime >= newActivityStartTime && endTime <= newActivityEndTime) {
         conflict = true;
         return;
       }
@@ -117,6 +115,7 @@ const activitiesService = {
   getActivities,
   createActivity,
   findUserActivities,
+  checkEnrollmentTicket,
 };
 
 export default activitiesService;

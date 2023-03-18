@@ -29,6 +29,9 @@ export async function getUserActivities(req: AuthenticatedRequest, res: Response
 
     return res.status(httpStatus.OK).send(activities);
   } catch (error) {
+    if (error.name === 'forbidenError') {
+      return res.sendStatus(httpStatus.FORBIDDEN);
+    }
     return res.sendStatus(httpStatus.NOT_FOUND);
   }
 }
