@@ -51,3 +51,17 @@ export async function postActivity(req: AuthenticatedRequest, res: Response) {
     return res.sendStatus(httpStatus.NOT_FOUND);
   }
 }
+
+export async function getAmountInscriptions(req: AuthenticatedRequest, res: Response) {
+  const { userId } = req;
+  const { activityTypeId } = req.params;
+
+  try {
+  const amountInscriptions = await activitiesService.findActivityInscription(userId, Number(activityTypeId));
+
+  return res.status(httpStatus.OK).send(amountInscriptions);
+
+  } catch (error) {
+    return res.sendStatus(httpStatus.NOT_FOUND);
+  }
+}

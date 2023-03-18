@@ -113,10 +113,28 @@ async function createActivity(userId: number, activityTypeId: number) {
   return activity;
 }
 
+async function findActivityInscription(userId: number, activityTypeId: number) {
+  const enrollment = await checkEnrollmentTicket(userId);
+  if (!enrollment) {
+    throw notFoundError();
+  }
+
+  const activityType = await activityRepository.findActivityTypeById(activityTypeId);
+
+  if (!activityType) {
+    throw notFoundError();
+  }
+
+  const reservations = await activityRepository.findActivityReservations(activityType.id);
+
+  return {amount: reservations};
+}
+
 const activitiesService = {
   getActivities,
   createActivity,
   findUserActivities,
+  findActivityInscription,
 };
 
 export default activitiesService;
