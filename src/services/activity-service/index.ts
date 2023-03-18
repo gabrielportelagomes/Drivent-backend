@@ -115,6 +115,7 @@ const activitiesService = {
   getActivities,
   createActivity,
   findUserActivities,
+  checkEnrollmentTicket,
 };
 
 export default activitiesService;
