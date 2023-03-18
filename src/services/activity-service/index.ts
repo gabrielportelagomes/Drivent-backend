@@ -92,10 +92,10 @@ async function createActivity(userId: number, activityTypeId: number) {
         Number(schedule[0].split(':')[0]) + Number((Number(schedule[0].split(':')[1]) / 60).toFixed(4));
       const newActivityEndTime =
         Number(schedule[1].split(':')[0]) + Number((Number(schedule[1].split(':')[1]) / 60).toFixed(4));
-      if (newActivityStartTime >= startTime && newActivityStartTime <= endTime) {
+      if (startTime >= newActivityStartTime && startTime <= newActivityEndTime) {
         conflict = true;
         return;
-      } else if (newActivityEndTime >= startTime && newActivityEndTime <= endTime) {
+      } else if (endTime >= newActivityStartTime && endTime <= newActivityEndTime) {
         conflict = true;
         return;
       }

@@ -14,7 +14,7 @@ export async function createActivityTypeWithFewVacancies() {
   return prisma.activityType.create({
     data: {
       name: faker.name.findName(),
-      schedules: `${faker.datatype.number({ min: 10, max: 15 })}:${faker.datatype.number({
+      schedules: `${faker.datatype.number({ min: 10, max: 14 })}:${faker.datatype.number({
         min: 10,
         max: 59,
       })}-${faker.datatype.number({ min: 16, max: 20 })}:${faker.datatype.number({ min: 10, max: 59 })}`,
@@ -33,6 +33,29 @@ export async function createConflictActivityType(schedule: string, activityDate:
     data: {
       name: faker.name.findName(),
       schedules: schedule,
+      capacity: faker.datatype.number({ min: 10, max: 20 }),
+      activityDate: activityDate,
+      place: faker.address.streetAddress(),
+    },
+  });
+}
+
+export async function createConflictActivityTypeEndTime(schedule: string, activityDate: string) {
+  const arrSchedule = schedule.split('-');
+
+  return prisma.activityType.create({
+    data: {
+      name: faker.name.findName(),
+      schedules: `${
+        Number(arrSchedule[0].split(':')[0]) -
+        1 +
+        ':' +
+        Number(arrSchedule[0].split(':')[1]) +
+        '-' +
+        Number(arrSchedule[1].split(':')[0]) +
+        ':' +
+        Number(arrSchedule[1].split(':')[1])
+      }`,
       capacity: faker.datatype.number({ min: 10, max: 20 }),
       activityDate: activityDate,
       place: faker.address.streetAddress(),

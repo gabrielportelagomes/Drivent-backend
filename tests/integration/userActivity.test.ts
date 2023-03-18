@@ -19,6 +19,7 @@ import {
   createActivity,
   createActivityTypeWithFewVacancies,
   createConflictActivityType,
+  createConflictActivityTypeEndTime,
 } from '../factories/userActivity-factory';
 import { cleanDb, generateValidToken } from '../helpers';
 
@@ -299,6 +300,25 @@ describe('POST /activity', () => {
       const activityType = await createActivityTypeWithFewVacancies();
       const activity = await createActivity(activityType.id, enrollment.id);
       const conflictActivityType = await createConflictActivityType(activityType.schedules, activityType.activityDate);
+      const body = { activityTypeId: conflictActivityType.id };
+
+      const response = await server.post('/activity').set('Authorization', `Bearer ${token}`).send(body);
+
+      expect(response.status).toEqual(httpStatus.CONFLICT);
+    });
+
+    it('should respond with status 409 when given activityType has partial time  conflict  ', async () => {
+      const user = await createUser();
+      const token = await generateValidToken(user);
+      const enrollment = await createEnrollmentWithAddress(user);
+      const ticketType = await createTicketTypeWithHotel();
+      const ticket = await createTicket(enrollment.id, ticketType.id, TicketStatus.PAID);
+      const activityType = await createActivityTypeWithFewVacancies();
+      const activity = await createActivity(activityType.id, enrollment.id);
+      const conflictActivityType = await createConflictActivityTypeEndTime(
+        activityType.schedules,
+        activityType.activityDate,
+      );
       const body = { activityTypeId: conflictActivityType.id };
 
       const response = await server.post('/activity').set('Authorization', `Bearer ${token}`).send(body);
