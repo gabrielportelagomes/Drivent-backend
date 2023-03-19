@@ -1,4 +1,4 @@
-import { getActivities, getUserActivities, postActivity } from '@/controllers/activity-controller';
+import { getActivities, getAmountInscriptions, getUserActivities, postActivity } from '@/controllers/activity-controller';
 import { authenticateToken, validateBody } from '@/middlewares';
 import { createActivitySchema } from '@/schemas';
 import { Router } from 'express';
@@ -9,6 +9,7 @@ activityRouter
   .all('/*', authenticateToken)
   .get('/', getActivities)
   .get('/user', getUserActivities)
+  .get('/inscriptions/:activityTypeId', getAmountInscriptions)
   .post('/', validateBody(createActivitySchema), postActivity);
 
 export { activityRouter };

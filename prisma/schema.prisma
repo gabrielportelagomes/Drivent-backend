@@ -150,6 +150,7 @@ model ActivityType {
   createdAt    DateTime   @default(now())
   updatedAt    DateTime   @updatedAt
   Activity     Activity[]
+  @@index([activityDate])
 }
 
 model Activity {

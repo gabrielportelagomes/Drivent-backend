@@ -1,4 +1,4 @@
-import { ActivityType, Hotel, Prisma, PrismaClient, Room, TicketType } from '@prisma/client';
+import { ActivityType, Hotel, Prisma, PrismaClient, Activity, TicketType } from '@prisma/client';
 import dayjs from 'dayjs';
 import { createClient } from 'redis';
 const prisma = new PrismaClient();
@@ -167,10 +167,16 @@ async function main() {
           activityDate: 'Quinta, 23/03',
           place: 'Sala de Workshop',
         },
+        {
+          name: 'Palestra de Encerramento',
+          schedules: '19:00-21:00',
+          capacity: 20,
+          activityDate: 'Quinta, 23/03',
+          place: 'Sala de Workshop',
+        },
       ],
     });
   }
-
   console.log({ event, ticketType, hotel, activityType });
 }
 
